@@ -31,7 +31,7 @@ void MainWindow::createTextTransmitation()
     textTransmitation.append("Postać transmitancji H(s)" );
 
     textTransmitation.append("\n                " + QString::number(b_1) + "s + " + QString::number(b_0) +"\n");
-    textTransmitation.append("-------------------------------   * exp ( -s * "+QString::number(T));
+    textTransmitation.append("-------------------------------   * exp ( -s * "+QString::number(opoz));
     textTransmitation.append(")\n s^3 + " + QString::number(a_2) + "s^2 + " + QString::number(a_1) + "s + ");
     textTransmitation.append(QString::number(a_0));
 
@@ -145,12 +145,13 @@ void MainWindow::on_p_sinus_clicked()
 
     for (int i=0; i<obliczenia.total; i++)
     {
+         double czas = i*h;
 
-        dane->append(i, obliczenia.u[i]);
+        dane->append(czas, obliczenia.u[i]);
     }
 
     wykres->setData(WEJSCIE,dane);
-    wykres->ustawPrzedzialyWykresu(WEJSCIE,0,T/h,-10, 10);
+    wykres->ustawPrzedzialyWykresu(WEJSCIE,0,T/10,-obliczenia.M, obliczenia.M);
 
 }
 
@@ -160,14 +161,21 @@ void MainWindow::on_p_syg_wyj_clicked()
     obliczenia.sinus();
     drugiwykres = new Wykres(WYJSCIE);
 
+    opoz = opoz * 100;
 
-    for (int i=0; i<obliczenia.total-1; i++)
+
+
+
+    for (int i=0; i<obliczenia.total-1 + opoz; i++)
     {
-
-        dane->append(i, obliczenia.y[i]);
+         double czas = i*h;
+         if(i<opoz)
+         dane->append(czas, 0);
+         else
+        dane->append(czas, obliczenia.y[i - opoz]);
     }
 
     drugiwykres->setData(WYJSCIE,dane);
-    drugiwykres->ustawPrzedzialyWykresu(WYJSCIE,0,T/h,obliczenia.checkMinimum(), obliczenia.checkMaksimum());
+    drugiwykres->ustawPrzedzialyWykresu(WYJSCIE,0,T/10,obliczenia.checkMinimum(), obliczenia.checkMaksimum());
     ui->graphicsView_2->setChart(drugiwykres);
 }
