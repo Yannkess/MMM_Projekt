@@ -25,9 +25,8 @@ void MainWindow::createTextTransmitation()
     textTransmitation.append("Postać transmitancji H(s)" );
 
     textTransmitation.append("\n" + QString::number(b_1) + "s + " + QString::number(b_0) +"\n");
-    textTransmitation.append("-------------------   * exp ( -s * "+QString::number(T));
-    textTransmitation.append(QString::number(a_2));
-    textTransmitation.append(")\n + s^2 + " + QString::number(a_1) + "s + ");
+    textTransmitation.append("------------------------   * exp ( -s * "+QString::number(T));
+    textTransmitation.append(")\n" + QString::number(a_2) + "s^2 + " + QString::number(a_1) + "s + ");
     textTransmitation.append(QString::number(a_0));
 
     ui->plainTextEdit->setPlainText(textTransmitation);
