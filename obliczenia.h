@@ -11,7 +11,7 @@
 #define h 0.001 // krok obliczeń
 #define T 10 // całkowity czas symulacji – przedział [0 , T]
 #define L 2.5 // liczba okresów sygnału sinus w przedziale T
-#define M 8.0 // amplituda sygnału sinus
+
 #define PI 3.14159265 // liczba PI
 
 
@@ -21,13 +21,21 @@ class Obliczenia
 public:
     Obliczenia();
 
+
+    double checkMaksimum();
+    double checkMinimum();
+
+
     double a_0=10;
     double a_1=10;
     double a_2=10;
     double b_1=10;
     double b_0=10;
-    double amp = 10;
     int total =  0;
+    double M = 8; // ampliuda sygnału
+
+
+    void sinus();
 
     // pomocniczy typ – kolejne bajty danej ’double’
     typedef union { char c[sizeof(double)]; double d; } Box;

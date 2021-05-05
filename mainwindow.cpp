@@ -76,6 +76,8 @@ void MainWindow::display_remarks()
 
 
 
+
+
 void MainWindow::on_lineEdit_A2_textChanged()
 {
     QString a_2_string = ui->lineEdit_A2->text();
@@ -114,7 +116,7 @@ void MainWindow::on_lineEdit_Amp_textChanged(const QString &arg1)
     Amp = Amp_string.toInt(&convertOK);
     display_remarks();
     createTextTransmitation();
-    obliczenia.amp = this->Amp;
+    obliczenia.M = this->Amp;
 }
 
 void MainWindow::on_lineEdit_Tin_textChanged(const QString &arg1)
@@ -139,6 +141,7 @@ void MainWindow::on_p_sinus_clicked()
 {
 
     QLineSeries *dane =new QLineSeries();
+    obliczenia.sinus();
 
     for (int i=0; i<obliczenia.total; i++)
     {
@@ -154,6 +157,9 @@ void MainWindow::on_p_sinus_clicked()
 void MainWindow::on_p_syg_wyj_clicked()
 {
     QLineSeries *dane =new QLineSeries();
+    obliczenia.sinus();
+    drugiwykres = new Wykres(WYJSCIE);
+
 
     for (int i=0; i<obliczenia.total-1; i++)
     {
@@ -161,6 +167,7 @@ void MainWindow::on_p_syg_wyj_clicked()
         dane->append(i, obliczenia.y[i]);
     }
 
-    wykres->setData(WEJSCIE,dane);
-    wykres->ustawPrzedzialyWykresu(WEJSCIE,0,T/h,-10, 10);
+    drugiwykres->setData(WYJSCIE,dane);
+    drugiwykres->ustawPrzedzialyWykresu(WYJSCIE,0,T/h,obliczenia.checkMinimum(), obliczenia.checkMaksimum());
+    ui->graphicsView_2->setChart(drugiwykres);
 }

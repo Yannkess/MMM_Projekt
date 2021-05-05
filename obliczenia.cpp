@@ -9,6 +9,11 @@
 
 Obliczenia::Obliczenia()
 {
+
+}
+
+
+void Obliczenia::sinus(){
     int i, j;
     double  w;
 
@@ -31,4 +36,32 @@ Obliczenia::Obliczenia()
         y1p[i + 1] = y1p[i] + h * y2p[i] + (h * h / 2.0) * y3p[i] + (h * h * h / 6.0);
         y[i + 1] = y[i] + h * y1p[i] + (h * h / 2.0) * y2p[i] + (h * h * h / 6.0) * y3p[i];
     }
+}
+
+
+double Obliczenia::checkMaksimum()
+{
+    double maksimumY=0;
+    for (int i=0; i<total; i++)
+    {
+        if(y[i]>maksimumY)
+        {
+            maksimumY=y[i];
+        }
+    }
+    return maksimumY;
+
+}
+
+double Obliczenia::checkMinimum()
+{
+    double minimum=0;
+    for (int i=0; i<total; i++)
+    {
+        if(y[i]<minimum)
+        {
+            minimum=y[i];
+        }
+    }
+    return minimum;
 }
