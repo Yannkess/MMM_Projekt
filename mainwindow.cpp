@@ -130,7 +130,7 @@ void MainWindow::on_lineEdit_Opoz_textChanged(const QString &arg1)
 {
     QString Opoz_string = ui->lineEdit_Opoz->text();
     bool convertOK;
-    T = Opoz_string.toInt(&convertOK);
+    opoz = Opoz_string.toInt(&convertOK);
     display_remarks();
     createTextTransmitation();
 }
@@ -138,4 +138,29 @@ void MainWindow::on_lineEdit_Opoz_textChanged(const QString &arg1)
 void MainWindow::on_p_sinus_clicked()
 {
 
+    QLineSeries *dane =new QLineSeries();
+
+    for (int i=0; i<obliczenia.total; i++)
+    {
+
+        dane->append(i, obliczenia.u[i]);
+    }
+
+    wykres->setData(WEJSCIE,dane);
+    wykres->ustawPrzedzialyWykresu(WEJSCIE,0,T/h,-10, 10);
+
+}
+
+void MainWindow::on_p_syg_wyj_clicked()
+{
+    QLineSeries *dane =new QLineSeries();
+
+    for (int i=0; i<obliczenia.total-1; i++)
+    {
+
+        dane->append(i, obliczenia.y[i]);
+    }
+
+    wykres->setData(WEJSCIE,dane);
+    wykres->ustawPrzedzialyWykresu(WEJSCIE,0,T/h,-10, 10);
 }

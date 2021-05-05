@@ -33,10 +33,12 @@ public:
     int a_1 = startPoint
     int a_0 = startPoint
     int Amp = startPoint
-    int T   = 0;
+    int opoz = 0;
     int Tin = 10;
     int b_1 = 6;
     int b_0 = 5;
+    double max_time = 100;
+    double maksimumY=2;
 
     QString textTransmitation;
     void createTextTransmitation();
@@ -57,6 +59,8 @@ private slots:
     void on_lineEdit_Opoz_textChanged(const QString &arg1);
 
     void on_p_sinus_clicked();
+
+    void on_p_syg_wyj_clicked();
 
 private:
 

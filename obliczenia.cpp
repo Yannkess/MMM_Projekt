@@ -2,31 +2,14 @@
 #include <cmath>
 #include <conio.h>
 
-#define h 0.001 // krok obliczeń
-#define T 10.0 // całkowity czas symulacji – przedział [0 , T]
-#define L 2.5 // liczba okresów sygnału sinus w przedziale T
-#define M 8.0 // amplituda sygnału sinus
-#define PI 3.14159265 // liczba PI
-// pomocniczy typ – kolejne bajty danej ’double’
-typedef union { char c[sizeof(double)]; double d; } Box;
-// zmienne globalne w programie
-double u[(int)(1.0 * T / h) + 1]; // sygnał wejściowy
-double u1p[(int)(1.0 * T / h) + 1]; // pierwsza pochodna sygnału wejściowego
 
 
-double y[(int)(1.0 * T / h) + 1]; // sygnał wyjściowy
-double y1p[(int)(1.0 * T / h) + 1]; // pierwsza pochodna sygnału wyjściowego
-double y2p[(int)(1.0 * T / h) + 1]; // druga pochodna sygnału wyjściowego
-double y3p[(int)(1.0 * T / h) + 1]; // trzecia pochodna sygnału wyjściowego
-
-Box z; // zmienna: pojedyncza wartość sygnału (u lub y)
-// program główny
 
 
 
 Obliczenia::Obliczenia()
 {
-    int i, j, total;
+    int i, j;
     double  w;
 
 
@@ -47,19 +30,5 @@ Obliczenia::Obliczenia()
         y2p[i + 1] = y2p[i] + h * y3p[i];
         y1p[i + 1] = y1p[i] + h * y2p[i] + (h * h / 2.0) * y3p[i] + (h * h * h / 6.0);
         y[i + 1] = y[i] + h * y1p[i] + (h * h / 2.0) * y2p[i] + (h * h * h / 6.0) * y3p[i];
-
-    for (i = 0; i < total; i++) {
-        double k = u[i];
-
     }
-
-
-    for (i = 0; i < total; i++) {
-        double k = y[i];
-
-    }
-
-
-
-}
 }
