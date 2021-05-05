@@ -2,7 +2,16 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <string>
+#include <QString>
+#include <QButtonGroup>
+#include <QDebug>
 
+
+
+
+#include "obliczenia.h"
+#include "wykres.h"
 
 
 #define startPoint 10;
@@ -35,9 +44,25 @@ public:
 
 private slots:
 
-    void on_textEdit_A2_textChanged();
+    void on_lineEdit_A2_textChanged();
+
+    void on_lineEdit_A1_textChanged(const QString &arg1);
+
+    void on_lineEdit_A0_textChanged(const QString &arg1);
+
+    void on_lineEdit_Amp_textChanged(const QString &arg1);
+
+    void on_lineEdit_Tin_textChanged(const QString &arg1);
+
+    void on_lineEdit_Opoz_textChanged(const QString &arg1);
+
+    void on_p_sinus_clicked();
 
 private:
+
     Ui::MainWindow *ui;
+    Obliczenia obliczenia;
+    Wykres *wykres;
+    Wykres *drugiwykres;
 };
 #endif // MAINWINDOW_H

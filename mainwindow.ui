@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QGraphicsView" name="graphicsView">
+   <widget class="QtCharts::QChartView" name="graphicsView">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -24,7 +24,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QGraphicsView" name="graphicsView_2">
+   <widget class="QtCharts::QChartView" name="graphicsView_2">
     <property name="geometry">
      <rect>
       <x>720</x>
@@ -59,26 +59,6 @@
       <string>A2</string>
      </property>
     </widget>
-    <widget class="QTextEdit" name="textEdit_A1">
-     <property name="geometry">
-      <rect>
-       <x>280</x>
-       <y>40</y>
-       <width>141</width>
-       <height>31</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QTextEdit" name="textEdit_A0">
-     <property name="geometry">
-      <rect>
-       <x>490</x>
-       <y>40</y>
-       <width>141</width>
-       <height>31</height>
-      </rect>
-     </property>
-    </widget>
     <widget class="QLabel" name="label_2">
      <property name="geometry">
       <rect>
@@ -103,36 +83,6 @@
      </property>
      <property name="text">
       <string>A0</string>
-     </property>
-    </widget>
-    <widget class="QTextEdit" name="textEdit_Amp">
-     <property name="geometry">
-      <rect>
-       <x>80</x>
-       <y>170</y>
-       <width>141</width>
-       <height>31</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QTextEdit" name="textEdit_Tin">
-     <property name="geometry">
-      <rect>
-       <x>280</x>
-       <y>170</y>
-       <width>141</width>
-       <height>31</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QTextEdit" name="textEdit_Op">
-     <property name="geometry">
-      <rect>
-       <x>490</x>
-       <y>170</y>
-       <width>141</width>
-       <height>31</height>
-      </rect>
      </property>
     </widget>
     <widget class="QLabel" name="label_4">
@@ -189,6 +139,56 @@
       <rect>
        <x>80</x>
        <y>40</y>
+       <width>141</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_A1">
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>40</y>
+       <width>141</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_A0">
+     <property name="geometry">
+      <rect>
+       <x>490</x>
+       <y>40</y>
+       <width>141</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_Amp">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>180</y>
+       <width>141</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_Tin">
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>180</y>
+       <width>141</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_Opoz">
+     <property name="geometry">
+      <rect>
+       <x>490</x>
+       <y>180</y>
        <width>141</width>
        <height>31</height>
       </rect>
@@ -316,6 +316,13 @@ Fazowa
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QtCharts::QChartView</class>
+   <extends>QGraphicsView</extends>
+   <header>QtCharts</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

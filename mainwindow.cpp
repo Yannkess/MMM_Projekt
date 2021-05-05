@@ -7,6 +7,12 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     createTextTransmitation();
+    this->setWindowTitle("Metody Modelowania Matematycznego - Projekt - Marcin Jankowski, Kacper Wierciński");
+    ui->plainTextEdit->setReadOnly(true);
+
+    wykres = new Wykres(WEJSCIE);
+    ui->graphicsView->setChart(wykres);
+
 }
 
 MainWindow::~MainWindow()
@@ -24,9 +30,9 @@ void MainWindow::createTextTransmitation()
 
     textTransmitation.append("Postać transmitancji H(s)" );
 
-    textTransmitation.append("\n" + QString::number(b_1) + "s + " + QString::number(b_0) +"\n");
-    textTransmitation.append("------------------------   * exp ( -s * "+QString::number(T));
-    textTransmitation.append(")\n" + QString::number(a_2) + "s^2 + " + QString::number(a_1) + "s + ");
+    textTransmitation.append("\n                " + QString::number(b_1) + "s + " + QString::number(b_0) +"\n");
+    textTransmitation.append("-------------------------------   * exp ( -s * "+QString::number(T));
+    textTransmitation.append(")\n s^3 + " + QString::number(a_2) + "s^2 + " + QString::number(a_1) + "s + ");
     textTransmitation.append(QString::number(a_0));
 
     ui->plainTextEdit->setPlainText(textTransmitation);
@@ -55,17 +61,13 @@ void MainWindow::display_remarks()
     {
         mistake += " Okres wejścia";
     }
-    if(T==0)
-    {
-        mistake += " Opóźnienie";
-    }
     if(Amp==0)
     {
         mistake += " Amplituda";
     }
     ui->textBrowser->setText(mistake);
 
-    if(a_0 != 0 && a_1 != 0 && a_2 != 0 && Tin != 0 && T!=0 && Amp !=0)
+    if(a_0 != 0 && a_1 != 0 && a_2 != 0 && Tin != 0 && Amp !=0)
 
 
         ui->textBrowser->setText(" ");
@@ -74,11 +76,66 @@ void MainWindow::display_remarks()
 
 
 
-void MainWindow::on_textEdit_A2_textChanged()
+void MainWindow::on_lineEdit_A2_textChanged()
 {
     QString a_2_string = ui->lineEdit_A2->text();
     bool convertOK;
     a_2 = a_2_string.toInt(&convertOK);
     display_remarks();
     createTextTransmitation();
+    obliczenia.a_2 = this->a_2;
+
+}
+
+void MainWindow::on_lineEdit_A1_textChanged(const QString &arg1)
+{
+    QString a_1_string = ui->lineEdit_A1->text();
+    bool convertOK;
+    a_1 = a_1_string.toInt(&convertOK);
+    display_remarks();
+    createTextTransmitation();
+    obliczenia.a_1 = this->a_1;
+}
+
+void MainWindow::on_lineEdit_A0_textChanged(const QString &arg1)
+{
+    QString a_0_string = ui->lineEdit_A0->text();
+    bool convertOK;
+    a_0 = a_0_string.toInt(&convertOK);
+    display_remarks();
+    createTextTransmitation();
+    obliczenia.a_0 = this->a_0;
+}
+
+void MainWindow::on_lineEdit_Amp_textChanged(const QString &arg1)
+{
+    QString Amp_string = ui->lineEdit_Amp->text();
+    bool convertOK;
+    Amp = Amp_string.toInt(&convertOK);
+    display_remarks();
+    createTextTransmitation();
+    obliczenia.amp = this->Amp;
+}
+
+void MainWindow::on_lineEdit_Tin_textChanged(const QString &arg1)
+{
+    QString Tin_string = ui->lineEdit_Tin->text();
+    bool convertOK;
+    Tin = Tin_string.toInt(&convertOK);
+    display_remarks();
+    createTextTransmitation();
+}
+
+void MainWindow::on_lineEdit_Opoz_textChanged(const QString &arg1)
+{
+    QString Opoz_string = ui->lineEdit_Opoz->text();
+    bool convertOK;
+    T = Opoz_string.toInt(&convertOK);
+    display_remarks();
+    createTextTransmitation();
+}
+
+void MainWindow::on_p_sinus_clicked()
+{
+
 }
