@@ -65,3 +65,41 @@ double Obliczenia::checkMinimum()
     }
     return minimum;
 }
+
+//------------------
+//Giga oro na macierzach
+
+void Obliczenia::wypelnienie_macierzy()
+{
+    macierzA[0][0] = macierzA[0][2] = macierzA[1][0] = macierzA[1][1] = 0;
+    macierzA[0][1] = macierzA[1][2] = 1;
+    macierzA[2][0] = -1*a_0;
+    macierzA[2][1] = -1*a_1;
+    macierzA[2][2] = -1*a_2;
+
+    for(int i = 0; i < 3; i++)          //Wypelnienie macierzy B
+        for(int j = 0; j < 3; j++)
+        {
+            if(i == 2 && j == 0)       // Wstawienie 1 tylko w polu (2,0)
+                macierzB[i][j] = 1;
+            else
+                macierzB[i][j] = 0;     //Reszta wypelniana zerami
+        }
+
+    for(int i = 0; i < 3; i++)          //Wypelnienie macierzy C
+        for(int j = 0; j < 3; j++)
+        {
+            if(i == 0 && j == 0)       //Wstawienie b0 w polu (0,0)
+                macierzC[i][j] = b_0;
+            else if(i == 0 && j == 1)
+                macierzC[i][j] = b_1;   //Wstawienie b1 w polu (0,1)
+            else
+                macierzC[i][j] = 0;     //Reszta wypelniona zerami
+        }
+
+    macierzD = 0;   //Jednoelementowa macierz D = 0
+
+
+
+
+}

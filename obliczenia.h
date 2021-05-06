@@ -54,6 +54,18 @@ public:
 
 
 
+    //---------------------
+    // Do macierzy
+
+    void wypelnienie_macierzy();
+
+    double macierzA[3][3];
+    double macierzB[3][3];  //[3][1]
+    double macierzC[3][3];  //[1][3]
+    double macierzD;       //Jeden element
+
+
+
 };
 
 #endif // OBLICZENIA_H
