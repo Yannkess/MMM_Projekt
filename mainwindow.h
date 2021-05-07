@@ -37,8 +37,6 @@ public:
     int Tin = 10;
     int b_1 = startPoint;
     int b_0 = startPoint;
-    double max_time = 100;
-    double maksimumY=2;
     bool  prostokat = false;
     bool  sinus = false;
     bool  jednostkowy = false;

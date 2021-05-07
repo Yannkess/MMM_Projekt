@@ -9,10 +9,10 @@
 
 
 
-#define h 0.01 // krok obliczeń
-#define T 100 // całkowity czas symulacji – przedział [0 , T]
-#define L 25 // liczba okresów sygnału sinus w przedziale T
-#define N = 3
+#define h 0.1 // krok obliczeń
+#define T 1000 // całkowity czas symulacji – przedział [0 , T]
+#define L 250 // liczba okresów sygnału sinus w przedziale T
+
 
 #define PI 3.14159265 // liczba PI
 

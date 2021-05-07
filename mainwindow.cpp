@@ -30,7 +30,6 @@ void MainWindow::createTextTransmitation()
 
 
     textTransmitation.append("Postać transmitancji H(s)" );
-
     textTransmitation.append("\n                " + QString::number(b_1) + "s + " + QString::number(b_0) +"\n");
     textTransmitation.append("-------------------------------   * exp ( -s * "+QString::number(opoz));
     textTransmitation.append(")\n s^3 + " + QString::number(a_2) + "s^2 + " + QString::number(a_1) + "s + ");
@@ -154,7 +153,7 @@ void MainWindow::on_p_skok_jedn_clicked()
     }
 
     wykres->setData(WEJSCIE,dane);
-    wykres->ustawPrzedzialyWykresu(WEJSCIE,0,T/10,-obliczenia.M, obliczenia.M);
+    wykres->ustawPrzedzialyWykresu(WEJSCIE,0,T/100,-obliczenia.M, obliczenia.M);
 }
 void MainWindow::on_p_fala_prost_clicked()
 {
@@ -173,7 +172,7 @@ void MainWindow::on_p_fala_prost_clicked()
     }
 
     wykres->setData(WEJSCIE,dane);
-    wykres->ustawPrzedzialyWykresu(WEJSCIE,0,T/10,-obliczenia.M, obliczenia.M);
+    wykres->ustawPrzedzialyWykresu(WEJSCIE,0,T/100,-obliczenia.M, obliczenia.M);
 }
 
 void MainWindow::on_p_sinus_clicked()
@@ -193,7 +192,7 @@ void MainWindow::on_p_sinus_clicked()
     }
 
     wykres->setData(WEJSCIE,dane);
-    wykres->ustawPrzedzialyWykresu(WEJSCIE,0,T/10,-obliczenia.M, obliczenia.M);
+    wykres->ustawPrzedzialyWykresu(WEJSCIE,0,T/100,-obliczenia.M, obliczenia.M);
 
 }
 
@@ -210,7 +209,7 @@ if(jednostkowy)
 
     drugiwykres = new Wykres(WYJSCIE);
 
-    opoz = opoz * 100;
+    opoz = opoz * 10;
 
 
     for (int i=0; i<obliczenia.total-1 + opoz; i++)
@@ -223,7 +222,7 @@ if(jednostkowy)
     }
 
     drugiwykres->setData(WYJSCIE,dane);
-    drugiwykres->ustawPrzedzialyWykresu(WYJSCIE,0,T/10,obliczenia.checkMinimum(), obliczenia.checkMaksimum());
+    drugiwykres->ustawPrzedzialyWykresu(WYJSCIE,0,T/100,obliczenia.checkMinimum(), obliczenia.checkMaksimum());
     ui->graphicsView_2->setChart(drugiwykres);
 }
 
