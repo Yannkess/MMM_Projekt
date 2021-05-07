@@ -39,6 +39,10 @@ public:
     int b_0 = 5;
     double max_time = 100;
     double maksimumY=2;
+    bool  prostokat = false;
+    bool  sinus = false;
+    bool  heavyside = false;
+
 
     QString textTransmitation;
     void createTextTransmitation();
@@ -61,6 +65,8 @@ private slots:
     void on_p_sinus_clicked();
 
     void on_p_syg_wyj_clicked();
+
+    void on_p_fala_prost_clicked();
 
 private:
 

@@ -136,9 +136,31 @@ void MainWindow::on_lineEdit_Opoz_textChanged(const QString &arg1)
     display_remarks();
     createTextTransmitation();
 }
+void MainWindow::on_p_fala_prost_clicked()
+{
+    sinus = false;
+    heavyside = false;
+    prostokat = true;
+
+    QLineSeries *dane =new QLineSeries();
+    obliczenia.metoda_eulera_fala_prostokatna();
+
+    for (int i=0; i<obliczenia.total; i++)
+    {
+         double czas = i*h;
+
+        dane->append(czas, obliczenia.uf[i]);
+    }
+
+    wykres->setData(WEJSCIE,dane);
+    wykres->ustawPrzedzialyWykresu(WEJSCIE,0,T/10,-obliczenia.M, obliczenia.M);
+}
 
 void MainWindow::on_p_sinus_clicked()
 {
+    sinus = true;
+    heavyside = false;
+    prostokat = false;
 
     QLineSeries *dane =new QLineSeries();
     obliczenia.sinus();
@@ -155,10 +177,13 @@ void MainWindow::on_p_sinus_clicked()
 
 }
 
+
 void MainWindow::on_p_syg_wyj_clicked()
 {
     QLineSeries *dane =new QLineSeries();
-    obliczenia.sinus();
+
+    obliczenia.metoda_eulera_fala_prostokatna();
+
     drugiwykres = new Wykres(WYJSCIE);
 
     opoz = opoz * 100;
@@ -179,3 +204,5 @@ void MainWindow::on_p_syg_wyj_clicked()
     drugiwykres->ustawPrzedzialyWykresu(WYJSCIE,0,T/10,obliczenia.checkMinimum(), obliczenia.checkMaksimum());
     ui->graphicsView_2->setChart(drugiwykres);
 }
+
+

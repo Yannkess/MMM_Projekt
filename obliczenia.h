@@ -36,12 +36,19 @@ public:
 
 
     void sinus();
+    void Obliczenia::metoda_eulera_fala_prostokatna();
+    void wyjscie(double t);
+
 
     // pomocniczy typ – kolejne bajty danej ’double’
     typedef union { char c[sizeof(double)]; double d; } Box;
     // zmienne globalne w programie
     double u[(int)(1.0 * T / h) + 1]; // sygnał wejściowy
     double u1p[(int)(1.0 * T / h) + 1]; // pierwsza pochodna sygnału wejściowego
+
+    // Euler
+    double us[(int)(1.0*T/h)+1]; // sygnał wejściowy sinus
+    double uf[(int)(1.0*T/h)+1]; // sygnał wejściowy fala prostokątna
 
 
     double y[(int)(1.0 * T / h) + 1]; // sygnał wyjściowy
@@ -54,15 +61,29 @@ public:
 
 
 
+
+
     //---------------------
     // Do macierzy
 
     void wypelnienie_macierzy();
+    void dodawanie_macierzy(double Macierz1[3][3], double Macierz2[3][3], double Macierzwyj[3][3]);
+    void mnozenie_macierzy(double Macierz1[3][3], double Macierz2[3][3], double Macierzwyj[3][3]);
+    void mnozenie_skalarne(double Macierz1[3][3], double mnoznik, double Macierzwyj[3][3]);
+
 
     double macierzA[3][3];
     double macierzB[3][3];  //[3][1]
     double macierzC[3][3];  //[1][3]
     double macierzD;       //Jeden element
+    double macierzxi_1[3][3];
+    double macierzxi[3][3];
+    double macierz0[3][3];
+    double Ax[3][3];
+    double Bu[3][3];
+    double Cx[3][3];
+    double Du;
+
 
 
 

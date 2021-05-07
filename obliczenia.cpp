@@ -39,6 +39,42 @@ void Obliczenia::sinus(){
 }
 
 
+void Obliczenia::metoda_eulera_fala_prostokatna()
+{
+
+    int i, j;
+    double  w;
+    double macierzwyj[3][3];
+
+    total = sizeof(u) / sizeof(u[0]); // rozmiar wektorów danych
+     w = 2.0 * PI * L / T; // częstotliwość sinusoidy
+
+    for( i=0; i<total; i++) // obliczenie pobudzenia – sinus lub fala prostokątna
+     {
+     us[i]=M*sin(w*i*h); // sygnał wejściowy sinus: u=M*sin(w*t) , t=i*h
+     uf[i]=((us[i]>0)? M: -M); // sygnał wejściowy fala prostokątna
+     }
+    wypelnienie_macierzy();
+    for(i=0; i<total; i++)
+    {
+    mnozenie_macierzy(macierzA,macierzxi_1, Ax);
+    mnozenie_skalarne(macierzB,uf[i],Bu);
+    mnozenie_macierzy(macierzC,macierzxi_1, Cx);
+    Du = macierzD * uf[i];
+    dodawanie_macierzy(macierzA,macierzB,macierzxi);
+    mnozenie_skalarne(macierzxi,h,macierzxi);
+    dodawanie_macierzy(macierzxi_1,macierzxi,macierzxi);
+    dodawanie_macierzy(macierzxi,macierz0,macierzxi_1);
+    dodawanie_macierzy(Cx,macierz0,macierzwyj);
+    y[i]=macierzwyj[0][0];
+
+    }
+
+}
+
+void wyjscie(double t);
+
+
 double Obliczenia::checkMaksimum()
 {
     double maksimumY=0;
@@ -98,8 +134,58 @@ void Obliczenia::wypelnienie_macierzy()
         }
 
     macierzD = 0;   //Jednoelementowa macierz D = 0
+    for(int i = 0; i < 3; i++)          //Wypelnienie macierzy C
+        for(int j = 0; j < 3; j++)
+        {
+            macierzxi_1[i][j]=0;
+        }
+
+    for(int i = 0; i < 3; i++)          //Wypelnienie macierzy C
+        for(int j = 0; j < 3; j++)
+        {
+            macierz0[i][j]=0;
+        }
 
 
 
+}
+void Obliczenia:: dodawanie_macierzy(double (*Macierz1)[3], double (*Macierz2)[3], double (*Macierzwyj)[3])
+{
+    for (int i=0; i<3; i++)
+    {
+        for (int j=0; j<3; j++)
+        {
+            Macierzwyj[i][j]=Macierz1[i][j]+Macierz2[i][j];
+        }
+    }
+}
 
+void Obliczenia:: mnozenie_macierzy(double (*Macierz1)[3], double (*Macierz2)[3], double (*Macierzwyj)[3])
+{
+
+    double s;
+    for (int i=0; i<3; i++)
+    {
+        for (int j=0; j<3; j++){
+            s=0;
+            for(int k=0; k<3; k++)
+            {
+                s += Macierz1[i][k] * Macierz2[k][j];
+                Macierzwyj[i][j]=s;
+            }
+        }
+    }
+}
+
+void Obliczenia:: mnozenie_skalarne(double (*Macierz1)[3], double mnoznik, double (*Macierzwyj)[3])
+{
+    {
+        for (int i=0; i<3; i++)
+        {
+            for (int j=0; j<3; j++)
+            {
+                Macierzwyj[i][j]=mnoznik * Macierz1[i][j];
+            }
+        }
+    }
 }
