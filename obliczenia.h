@@ -8,11 +8,14 @@
 #include <complex>
 
 
+
 #define h 0.01 // krok obliczeń
 #define T 100 // całkowity czas symulacji – przedział [0 , T]
 #define L 25 // liczba okresów sygnału sinus w przedziale T
+#define N = 3
 
 #define PI 3.14159265 // liczba PI
+
 
 
 
@@ -20,6 +23,8 @@ class Obliczenia
 {
 public:
     Obliczenia();
+
+
 
 
     double checkMaksimum();
@@ -37,7 +42,9 @@ public:
 
     void sinus();
     void Obliczenia::metoda_eulera_fala_prostokatna();
-    void wyjscie(double t);
+    void Obliczenia::metoda_eulera_skok_jednostkowy();
+
+
 
 
     // pomocniczy typ – kolejne bajty danej ’double’
@@ -72,17 +79,13 @@ public:
     void mnozenie_skalarne(double Macierz1[3][3], double mnoznik, double Macierzwyj[3][3]);
 
 
+
+
+
     double macierzA[3][3];
     double macierzB[3][3];  //[3][1]
     double macierzC[3][3];  //[1][3]
-    double macierzD;       //Jeden element
-    double macierzxi_1[3][3];
-    double macierzxi[3][3];
-    double macierz0[3][3];
-    double Ax[3][3];
-    double Bu[3][3];
-    double Cx[3][3];
-    double Du;
+    double macierzD[3][3];
 
 
 

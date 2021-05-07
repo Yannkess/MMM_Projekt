@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -136,10 +137,29 @@ void MainWindow::on_lineEdit_Opoz_textChanged(const QString &arg1)
     display_remarks();
     createTextTransmitation();
 }
+void MainWindow::on_p_skok_jedn_clicked()
+{
+    sinus = false;
+    jednostkowy = true;
+    prostokat = false;
+
+    QLineSeries *dane =new QLineSeries();
+    obliczenia.metoda_eulera_skok_jednostkowy();
+
+    for (int i=0; i<obliczenia.total; i++)
+    {
+         double czas = i*h;
+
+        dane->append(czas, obliczenia.uf[i]);
+    }
+
+    wykres->setData(WEJSCIE,dane);
+    wykres->ustawPrzedzialyWykresu(WEJSCIE,0,T/10,-obliczenia.M, obliczenia.M);
+}
 void MainWindow::on_p_fala_prost_clicked()
 {
     sinus = false;
-    heavyside = false;
+    jednostkowy = false;
     prostokat = true;
 
     QLineSeries *dane =new QLineSeries();
@@ -159,7 +179,7 @@ void MainWindow::on_p_fala_prost_clicked()
 void MainWindow::on_p_sinus_clicked()
 {
     sinus = true;
-    heavyside = false;
+    jednostkowy = false;
     prostokat = false;
 
     QLineSeries *dane =new QLineSeries();
@@ -181,14 +201,16 @@ void MainWindow::on_p_sinus_clicked()
 void MainWindow::on_p_syg_wyj_clicked()
 {
     QLineSeries *dane =new QLineSeries();
-
+if(prostokat)
     obliczenia.metoda_eulera_fala_prostokatna();
+if(sinus)
+    obliczenia.sinus();
+if(jednostkowy)
+    obliczenia.metoda_eulera_skok_jednostkowy();
 
     drugiwykres = new Wykres(WYJSCIE);
 
     opoz = opoz * 100;
-
-
 
 
     for (int i=0; i<obliczenia.total-1 + opoz; i++)
@@ -204,5 +226,7 @@ void MainWindow::on_p_syg_wyj_clicked()
     drugiwykres->ustawPrzedzialyWykresu(WYJSCIE,0,T/10,obliczenia.checkMinimum(), obliczenia.checkMaksimum());
     ui->graphicsView_2->setChart(drugiwykres);
 }
+
+
 
 

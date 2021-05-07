@@ -41,7 +41,7 @@ public:
     double maksimumY=2;
     bool  prostokat = false;
     bool  sinus = false;
-    bool  heavyside = false;
+    bool  jednostkowy = false;
 
 
     QString textTransmitation;
@@ -67,6 +67,8 @@ private slots:
     void on_p_syg_wyj_clicked();
 
     void on_p_fala_prost_clicked();
+
+    void on_p_skok_jedn_clicked();
 
 private:
 
