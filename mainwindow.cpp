@@ -183,7 +183,7 @@ void MainWindow::on_p_sinus_clicked()
     prostokat = false;
 
     QLineSeries *dane =new QLineSeries();
-    obliczenia.sinus();
+    obliczenia.metoda_taylora_sinus();
 
     for (int i=0; i<obliczenia.total; i++)
     {
@@ -204,7 +204,7 @@ void MainWindow::on_p_syg_wyj_clicked()
 if(prostokat)
     obliczenia.metoda_eulera_fala_prostokatna();
 if(sinus)
-    obliczenia.sinus();
+    obliczenia.metoda_taylora_sinus();
 if(jednostkowy)
     obliczenia.metoda_eulera_skok_jednostkowy();
 

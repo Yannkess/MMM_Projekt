@@ -35,8 +35,8 @@ public:
     int Amp = startPoint
     int opoz = 0;
     int Tin = 10;
-    int b_1 = 6;
-    int b_0 = 5;
+    int b_1 = startPoint;
+    int b_0 = startPoint;
     double max_time = 100;
     double maksimumY=2;
     bool  prostokat = false;

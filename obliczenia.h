@@ -40,7 +40,7 @@ public:
     double M = 8; // ampliuda sygnału
 
 
-    void sinus();
+    void metoda_taylora_sinus();
     void Obliczenia::metoda_eulera_fala_prostokatna();
     void Obliczenia::metoda_eulera_skok_jednostkowy();
 
@@ -63,8 +63,7 @@ public:
     double y2p[(int)(1.0 * T / h) + 1]; // druga pochodna sygnału wyjściowego
     double y3p[(int)(1.0 * T / h) + 1]; // trzecia pochodna sygnału wyjściowego
 
-    Box z; // zmienna: pojedyncza wartość sygnału (u lub y)
-    // program główny
+
 
 
 
@@ -74,18 +73,7 @@ public:
     // Do macierzy
 
     void wypelnienie_macierzy();
-    void dodawanie_macierzy(double Macierz1[3][3], double Macierz2[3][3], double Macierzwyj[3][3]);
-    void mnozenie_macierzy(double Macierz1[3][3], double Macierz2[3][3], double Macierzwyj[3][3]);
-    void mnozenie_skalarne(double Macierz1[3][3], double mnoznik, double Macierzwyj[3][3]);
 
-
-
-
-
-    double macierzA[3][3];
-    double macierzB[3][3];  //[3][1]
-    double macierzC[3][3];  //[1][3]
-    double macierzD[3][3];
 
 
 

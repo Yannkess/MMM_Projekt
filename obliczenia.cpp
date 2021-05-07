@@ -52,7 +52,7 @@ double operator*(const Vect& U, const Vect& V)
     return s;
 }
 
-void Obliczenia::sinus(){
+void Obliczenia::metoda_taylora_sinus(){
     int i, j;
     double  w;
 
