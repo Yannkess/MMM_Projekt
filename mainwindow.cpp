@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     createTextTransmitation();
-    this->setWindowTitle("Metody Modelowania Matematycznego - Projekt - Marcin Jankowski, Kacper Wierciński");
+    this->setWindowTitle("Projekt - Marcin Jankowski, Kacper Wierciński");
     ui->plainTextEdit->setReadOnly(true);
 
     wykres = new Wykres(WEJSCIE);
@@ -40,7 +40,7 @@ void MainWindow::createTextTransmitation()
 
 void MainWindow::display_remarks()
 {
-    QString mistake="bledne wspolczynniki:";
+    QString mistake = "bledne wspolczynniki:";
     if(a_0 == 0)
     {
         mistake += " a0";
@@ -66,14 +66,6 @@ void MainWindow::display_remarks()
 
     if(a_0 != 0 && a_1 != 0 && a_2 != 0 && Tin != 0 && Amp !=0)
         ui->textBrowser->setText(" ");
-
-    bool warunek = obliczenia.warunek_stabilnosci();
-    if(warunek)
-        ui->textBrowser_2->setText("Warunek stabilności spełniony.");
-    else
-        ui->textBrowser_2->setText("Warunek stabilności nie jest spełniony.");
-
-
 }
 
 void MainWindow::on_lineEdit_A2_textChanged()
@@ -225,7 +217,7 @@ void MainWindow::on_p_syg_wyj_clicked()
     for (int i=0; i<obliczenia.total-1 + opoz; i++)
     {
          double czas = i * h;
-         if(i<opoz)
+         if(i < opoz)
          dane->append(czas, 0);
          else
         dane->append(czas, obliczenia.y[i - opoz]);
@@ -234,6 +226,18 @@ void MainWindow::on_p_syg_wyj_clicked()
     drugiwykres->setData(WYJSCIE,dane);
     drugiwykres->ustawPrzedzialyWykresu(WYJSCIE,0,T/100,obliczenia.checkMinimum(), obliczenia.checkMaksimum());
     ui->graphicsView_2->setChart(drugiwykres);
+
+    stabilnosc();
+}
+
+void MainWindow::stabilnosc()
+{
+
+    bool warunek = obliczenia.warunek_stabilnosci();
+    if(warunek)
+        ui->textBrowser_2->setText("Warunek stabilności spełniony.");
+    else
+        ui->textBrowser_2->setText("Warunek stabilności nie jest spełniony.");
 }
 
 

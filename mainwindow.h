@@ -45,24 +45,16 @@ public:
 private slots:
 
     void on_lineEdit_A2_textChanged();
-
     void on_lineEdit_A1_textChanged(const QString &arg1);
-
     void on_lineEdit_A0_textChanged(const QString &arg1);
-
     void on_lineEdit_Amp_textChanged(const QString &arg1);
-
     void on_lineEdit_Tin_textChanged(const QString &arg1);
-
     void on_lineEdit_Opoz_textChanged(const QString &arg1);
-
     void on_p_sinus_clicked();
-
     void on_p_syg_wyj_clicked();
-
     void on_p_fala_prost_clicked();
-
-    void on_p_skok_jedn_clicked();
+    void on_p_skok_jedn_clicked();    
+    void stabilnosc();
 
 private:
 
