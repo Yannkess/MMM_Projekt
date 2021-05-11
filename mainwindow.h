@@ -7,15 +7,10 @@
 #include <QButtonGroup>
 #include <QDebug>
 
-
-
-
 #include "obliczenia.h"
 #include "wykres.h"
 
-
 #define startPoint 10;
-
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -35,14 +30,15 @@ public:
     int Amp = startPoint
     int opoz = 0;
     int Tin = 10;
-    int b_1 = startPoint;
-    int b_0 = startPoint;
+    int b_1 = 5;
+    int b_0 = 1;
+
     bool  prostokat = false;
     bool  sinus = false;
     bool  jednostkowy = false;
 
-
     QString textTransmitation;
+
     void createTextTransmitation();
     void display_remarks();
 

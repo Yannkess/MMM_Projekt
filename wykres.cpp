@@ -52,7 +52,6 @@ void Wykres::setData(type_of_chart typ_wykresu, QLineSeries *danePrzekazane)
     this->addSeries(daneNaWykresie);
 
     if(typ_wykresu == WEJSCIE || typ_wykresu == WYJSCIE){
-
        daneNaWykresie->attachAxis(axisX);
        daneNaWykresie->attachAxis(axisY);
     }
@@ -67,7 +66,6 @@ void Wykres::ustawPrzedzialyWykresu(type_of_chart typ_wykresu, double bottomX, d
     if(typ_wykresu == WEJSCIE || typ_wykresu == WYJSCIE){
         axisX->setRange(bottomX,topX);
         axisY->setRange(bottomY,topY);
-
     }
     else {
         laxisX->setRange(bottomX,topX);
