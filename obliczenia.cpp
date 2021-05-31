@@ -190,12 +190,105 @@ void Obliczenia::wypelnienie_macierzy()
     D = 0;
 }
 
+//--------------
+std::complex<double> Obliczenia::transmitancja_widmowa(double omega)
+{
+    std::complex<double> licznik;
+    std::complex<double> mianownik;
+    std::complex<double> j(0,1);
+
+    licznik = b_1*j*omega + b_0;
+    mianownik = j*j*j*omega*omega*omega + a_2*j*j*omega*omega + a_1*j*omega + a_0;
+
+    return licznik / mianownik;
+}
+
+void Obliczenia::widmo_amplitudowe()
+{
+    maxZakres = -10000;
+    minZakres = 10000;
+
+    obliczaneDane = new QLineSeries();
+
+    std::complex<double> yValue;
+    double amplitude;
+
+    for(double omega = 0.1; omega < 10000 ; omega *= 10)
+    {
+        for(double i = 1; i <10; i++)
+        {
+            yValue = transmitancja_widmowa(omega * i);
+            amplitude = 20 * log(abs(yValue));
+            obliczaneDane->append(omega * i, amplitude);
+            zakres_widma(AMPLITUDA, amplitude);
+        }
+    }
+
+}
+
+void Obliczenia::widmo_fazowe()
+{
+    maxZakres = -10000;
+    minZakres = 10000;
+    obliczaneDane = new QLineSeries();
+    std::complex<double> yValue;
+
+    double argument;
+
+    for(double omega = 0.1; omega < 10000; omega *= 10)
+    {
+        for(double i = 1; i < 10; i++)
+        {
+             yValue = transmitancja_widmowa(omega * i);
+             argument = (arg(yValue) * 180) / M_PI;
+
+             obliczaneDane->append(omega * i, argument);
+
+             qDebug()<<"dla omega = "<< omega * i <<"argument = "<< argument;
+             zakres_widma(FAZA,argument);
+        }
+    }
+}
+
+void Obliczenia::zakres_widma(int typ, double wartosc)
+{
+    if(wartosc < minZakres)
+    {
+        minZakres = wartosc;
+    }
+
+    if(wartosc > maxZakres)
+    {
+        maxZakres = wartosc;
+        maxZakres = (floor((maxZakres / typ)) + 1) * typ;
+
+        if(maxZakres <= 0)
+        {
+            switch(typ)
+            {
+            case AMPLITUDA:
+                maxZakres = 20;
+                break;
+            case FAZA:
+                minZakres = 45;
+                break;
+            }
+        }
+    }
+
+    if (minZakres < 0)
+        minZakres = (floor((minZakres/typ))) * typ;
+    else
+        minZakres = (floor((minZakres / typ)) + 1) * typ;
+}
+
 bool Obliczenia::warunek_stabilnosci()
 {
     if((a_0 > 0) && (a_1 > 0) && (a_2 > 0))
     {
-        if(((a_1 * a_2 - a_0) / a_2) > 0)
+        if(((a_1 * a_2) - a_0) > 0)
              return true;
+        else return false;
     }
     else return false;
 }

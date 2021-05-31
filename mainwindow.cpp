@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 
@@ -53,18 +53,11 @@ void MainWindow::display_remarks()
     {
         mistake += " a2";
     }
-    if(Tin == 0)
-    {
-        mistake += " Okres wejścia";
-    }
-    if(Amp == 0)
-    {
-        mistake += " Amplituda";
-    }
+
 
     ui->textBrowser->setText(mistake);
 
-    if(a_0 != 0 && a_1 != 0 && a_2 != 0 && Tin != 0 && Amp !=0)
+    if(a_0 != 0 && a_1 != 0 && a_2 != 0)
         ui->textBrowser->setText(" ");
 }
 
@@ -80,7 +73,7 @@ void MainWindow::on_lineEdit_A2_textChanged()
     obliczenia.a_2 = this->a_2;
 }
 
-void MainWindow::on_lineEdit_A1_textChanged(const QString &arg1)
+void MainWindow::on_lineEdit_A1_textChanged()
 {
     QString a_1_string = ui->lineEdit_A1->text();
 
@@ -92,7 +85,7 @@ void MainWindow::on_lineEdit_A1_textChanged(const QString &arg1)
     obliczenia.a_1 = this->a_1;
 }
 
-void MainWindow::on_lineEdit_A0_textChanged(const QString &arg1)
+void MainWindow::on_lineEdit_A0_textChanged()
 {
     QString a_0_string = ui->lineEdit_A0->text();
 
@@ -104,30 +97,31 @@ void MainWindow::on_lineEdit_A0_textChanged(const QString &arg1)
     obliczenia.a_0 = this->a_0;
 }
 
-void MainWindow::on_lineEdit_Amp_textChanged(const QString &arg1)
+void MainWindow::on_lineEdit_B1_textChanged()
 {
-    QString Amp_string = ui->lineEdit_Amp->text();
+    QString B1_string = ui->lineEdit_B1->text();
 
     bool convertOK;
-    Amp = Amp_string.toInt(&convertOK);
+    b_1 = B1_string.toInt(&convertOK);
 
     display_remarks();
     createTextTransmitation();
-    obliczenia.M = this->Amp;
+    obliczenia.M = this->b_1;
 }
 
-void MainWindow::on_lineEdit_Tin_textChanged(const QString &arg1)
+void MainWindow::on_lineEdit_B0_textChanged()
 {
-    QString Tin_string = ui->lineEdit_Tin->text();
+    QString B0_string = ui->lineEdit_B0->text();
 
     bool convertOK;
-    Tin = Tin_string.toInt(&convertOK);
+    b_0 = B0_string.toInt(&convertOK);
 
     display_remarks();
     createTextTransmitation();
+    obliczenia.M = this->b_0;
 }
 
-void MainWindow::on_lineEdit_Opoz_textChanged(const QString &arg1)
+void MainWindow::on_lineEdit_Opoz_textChanged()
 {
     QString Opoz_string = ui->lineEdit_Opoz->text();
 
@@ -155,7 +149,7 @@ void MainWindow::on_p_skok_jedn_clicked()
     }
 
     wykres->setData(WEJSCIE,dane);
-    wykres->ustawPrzedzialyWykresu(WEJSCIE,0,T/100,-obliczenia.M, obliczenia.M);
+    wykres->ustawPrzedzialyWykresu(WEJSCIE,0,T/50,-obliczenia.M, obliczenia.M);
 }
 
 void MainWindow::on_p_fala_prost_clicked()
@@ -175,7 +169,7 @@ void MainWindow::on_p_fala_prost_clicked()
     }
 
     wykres->setData(WEJSCIE,dane);
-    wykres->ustawPrzedzialyWykresu(WEJSCIE,0,T/100,-obliczenia.M, obliczenia.M);
+    wykres->ustawPrzedzialyWykresu(WEJSCIE,0,T/50,-obliczenia.M, obliczenia.M);
 }
 
 void MainWindow::on_p_sinus_clicked()
@@ -195,7 +189,7 @@ void MainWindow::on_p_sinus_clicked()
     }
 
     wykres->setData(WEJSCIE,dane);
-    wykres->ustawPrzedzialyWykresu(WEJSCIE,0,T/100,-obliczenia.M, obliczenia.M);
+    wykres->ustawPrzedzialyWykresu(WEJSCIE,0,T/50,-obliczenia.M, obliczenia.M);
 }
 
 
@@ -203,18 +197,18 @@ void MainWindow::on_p_syg_wyj_clicked()
 {
     QLineSeries *dane = new QLineSeries();
 
-    if(prostokat)
-       obliczenia.metoda_eulera_fala_prostokatna();
     if(sinus)
         obliczenia.metoda_taylora_sinus();
-    if(jednostkowy)
+    else if(prostokat)
+       obliczenia.metoda_eulera_fala_prostokatna();
+    else if(jednostkowy)
        obliczenia.metoda_eulera_skok_jednostkowy();
 
     drugiwykres = new Wykres(WYJSCIE);
 
     opoz = opoz * 10;
 
-    for (int i=0; i<obliczenia.total-1 + opoz; i++)
+    for (int i = 0; i < obliczenia.total-1 + opoz; i++)
     {
          double czas = i * h;
          if(i < opoz)
@@ -224,15 +218,48 @@ void MainWindow::on_p_syg_wyj_clicked()
     }
 
     drugiwykres->setData(WYJSCIE,dane);
-    drugiwykres->ustawPrzedzialyWykresu(WYJSCIE,0,T/100,obliczenia.checkMinimum(), obliczenia.checkMaksimum());
+    drugiwykres->ustawPrzedzialyWykresu(WYJSCIE,0,T/50,obliczenia.checkMinimum(), obliczenia.checkMaksimum());
     ui->graphicsView_2->setChart(drugiwykres);
 
     stabilnosc();
 }
 
+void MainWindow::on_p_char_amp_clicked()
+{
+    wykres = new Wykres(AMPLITUDOWY);
+    QLineSeries *dane = new QLineSeries();
+
+    obliczenia.widmo_amplitudowe();
+    dane = obliczenia.obliczaneDane;
+
+    wykres->setData(AMPLITUDOWY,dane);
+    wykres->ustawPrzedzialyWykresu(AMPLITUDOWY,0.01,10000,obliczenia.minZakres, obliczenia.maxZakres);
+
+    int zakres  = int(((abs(obliczenia.maxZakres) + abs(obliczenia.minZakres))) / 20);
+    wykres->axisY->setTickCount(zakres + 1);
+
+    ui->graphicsView_2->setChart(wykres);
+}
+
+void MainWindow::on_p_char_faz_clicked()
+{
+    wykres = new Wykres(AMPLITUDOWY);
+    QLineSeries *dane = new QLineSeries();
+
+    obliczenia.widmo_fazowe();
+    dane = obliczenia.obliczaneDane;
+
+    wykres->setData(FAZOWY,dane);
+    wykres->ustawPrzedzialyWykresu(FAZOWY,0.01,10000,obliczenia.minZakres, obliczenia.maxZakres);
+
+    int zakres  = int(((abs(obliczenia.maxZakres) + abs(obliczenia.minZakres))) / 40);
+    wykres->axisY->setTickCount(zakres + 1);
+
+    ui->graphicsView_2->setChart(wykres);
+}
+
 void MainWindow::stabilnosc()
 {
-
     bool warunek = obliczenia.warunek_stabilnosci();
     if(warunek)
         ui->textBrowser_2->setText("Warunek stabilności spełniony.");

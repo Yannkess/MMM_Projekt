@@ -12,7 +12,6 @@
 #include <QLogValueAxis>
 
 enum type_of_chart {WEJSCIE, WYJSCIE, AMPLITUDOWY, FAZOWY};
-enum input_signal {SQUARE, HEAVYSIDE, SINUS};
 
 class Wykres : public QChart
 {

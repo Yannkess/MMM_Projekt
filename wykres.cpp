@@ -113,6 +113,6 @@ void Wykres::loglinAxis()
      this->addAxis(axisY, Qt::AlignLeft);
      laxisX->setMinorTickCount(9);
      axisY->setMinorTickCount(2);
-  //   axisY->setTickCount(3);
+     axisY->setTickCount(3);
 
 }

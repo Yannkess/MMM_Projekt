@@ -88,27 +88,27 @@
     <widget class="QLabel" name="label_4">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>140</x>
        <y>150</y>
        <width>51</width>
        <height>20</height>
       </rect>
      </property>
      <property name="text">
-      <string>Amplituda</string>
+      <string>B1</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_5">
      <property name="geometry">
       <rect>
-       <x>310</x>
+       <x>340</x>
        <y>150</y>
-       <width>91</width>
+       <width>71</width>
        <height>20</height>
       </rect>
      </property>
      <property name="text">
-      <string>Okres wejścia</string>
+      <string>B0</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_6">
@@ -164,7 +164,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_Amp">
+    <widget class="QLineEdit" name="lineEdit_B1">
      <property name="geometry">
       <rect>
        <x>80</x>
@@ -174,7 +174,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_Tin">
+    <widget class="QLineEdit" name="lineEdit_B0">
      <property name="geometry">
       <rect>
        <x>280</x>

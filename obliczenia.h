@@ -13,6 +13,10 @@
 
 #define PI 3.14159265 // liczba PI
 
+
+#define AMPLITUDA 20
+#define FAZA 45
+
 class Obliczenia
 {
 public:
@@ -24,15 +28,11 @@ public:
     double a_0 = 10;
     double a_1 = 10;
     double a_2 = 10;
-    double b_1 = 5;
-    double b_0 = 1;
+    double b_1 = 10;
+    double b_0 = 10;
 
     int total =  0;
     double M = 8; // ampliuda sygnału
-
-
-    // pomocniczy typ – kolejne bajty danej ’double’
-    typedef union { char c[sizeof(double)]; double d; } Box;
 
     // zmienne globalne w programie
     double u[(int)(1.0 * T / h) + 1]; // sygnał wejściowy
@@ -40,7 +40,7 @@ public:
 
     // Euler
     double us[(int)(1.0*T/h)+1]; // sygnał wejściowy sinus
-    double Ufala[(int)(1.0*T/h)+1];
+    double Ufala[(int)(1.0*T/h)+1]; // sygnał wejściowy fala prostokątna
     double Ujednostkowy[(int)(1.0*T/h)+1]; // sygnał wejściowy skok jednostkowy
 
 
@@ -53,7 +53,18 @@ public:
     void Obliczenia::metoda_eulera_fala_prostokatna();
     void Obliczenia::metoda_eulera_skok_jednostkowy();
     void wypelnienie_macierzy();
+
+    std::complex<double> transmitancja_widmowa(double omega);
+    void widmo_amplitudowe();
+    void widmo_fazowe();
+    void zakres_widma(int typ, double wartosc);
+
     bool warunek_stabilnosci();
+
+    QLineSeries *obliczaneDane;
+
+    double minZakres = 1000;
+    double maxZakres = -1000;
 };
 
 #endif // OBLICZENIA_H
