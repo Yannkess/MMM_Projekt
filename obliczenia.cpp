@@ -218,7 +218,7 @@ void Obliczenia::widmo_amplitudowe()
         for(double i = 1; i <10; i++)
         {
             yValue = transmitancja_widmowa(omega * i);
-            amplitude = 20 * log(abs(yValue));
+            amplitude = 20 * log10(abs(yValue));
             obliczaneDane->append(omega * i, amplitude);
             zakres_widma(AMPLITUDA, amplitude);
         }

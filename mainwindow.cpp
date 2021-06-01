@@ -106,7 +106,7 @@ void MainWindow::on_lineEdit_B1_textChanged()
 
     display_remarks();
     createTextTransmitation();
-    obliczenia.M = this->b_1;
+    obliczenia.b_1 = this->b_1;
 }
 
 void MainWindow::on_lineEdit_B0_textChanged()
@@ -118,7 +118,7 @@ void MainWindow::on_lineEdit_B0_textChanged()
 
     display_remarks();
     createTextTransmitation();
-    obliczenia.M = this->b_0;
+    obliczenia.b_0 = this->b_0;
 }
 
 void MainWindow::on_lineEdit_Opoz_textChanged()
@@ -149,7 +149,7 @@ void MainWindow::on_p_skok_jedn_clicked()
     }
 
     wykres->setData(WEJSCIE,dane);
-    wykres->ustawPrzedzialyWykresu(WEJSCIE,0,T/50,-obliczenia.M, obliczenia.M);
+    wykres->ustawPrzedzialyWykresu(WEJSCIE,0,T,-obliczenia.M, obliczenia.M);
 }
 
 void MainWindow::on_p_fala_prost_clicked()
@@ -169,7 +169,7 @@ void MainWindow::on_p_fala_prost_clicked()
     }
 
     wykres->setData(WEJSCIE,dane);
-    wykres->ustawPrzedzialyWykresu(WEJSCIE,0,T/50,-obliczenia.M, obliczenia.M);
+    wykres->ustawPrzedzialyWykresu(WEJSCIE,0,T,-obliczenia.M, obliczenia.M);
 }
 
 void MainWindow::on_p_sinus_clicked()
@@ -189,7 +189,7 @@ void MainWindow::on_p_sinus_clicked()
     }
 
     wykres->setData(WEJSCIE,dane);
-    wykres->ustawPrzedzialyWykresu(WEJSCIE,0,T/50,-obliczenia.M, obliczenia.M);
+    wykres->ustawPrzedzialyWykresu(WEJSCIE,0,T,-obliczenia.M, obliczenia.M);
 }
 
 
@@ -206,7 +206,7 @@ void MainWindow::on_p_syg_wyj_clicked()
 
     drugiwykres = new Wykres(WYJSCIE);
 
-    opoz = opoz * 10;
+    opoz = opoz * 1000;
 
     for (int i = 0; i < obliczenia.total-1 + opoz; i++)
     {
@@ -218,7 +218,8 @@ void MainWindow::on_p_syg_wyj_clicked()
     }
 
     drugiwykres->setData(WYJSCIE,dane);
-    drugiwykres->ustawPrzedzialyWykresu(WYJSCIE,0,T/50,obliczenia.checkMinimum(), obliczenia.checkMaksimum());
+    drugiwykres->ustawPrzedzialyWykresu(WYJSCIE,0,T,obliczenia.checkMinimum(), obliczenia.checkMaksimum());
+
     ui->graphicsView_2->setChart(drugiwykres);
 
     stabilnosc();
@@ -226,36 +227,36 @@ void MainWindow::on_p_syg_wyj_clicked()
 
 void MainWindow::on_p_char_amp_clicked()
 {
-    wykres = new Wykres(AMPLITUDOWY);
+    trzeciwykres = new Wykres(AMPLITUDOWY);
     QLineSeries *dane = new QLineSeries();
 
     obliczenia.widmo_amplitudowe();
     dane = obliczenia.obliczaneDane;
 
-    wykres->setData(AMPLITUDOWY,dane);
-    wykres->ustawPrzedzialyWykresu(AMPLITUDOWY,0.01,10000,obliczenia.minZakres, obliczenia.maxZakres);
+    trzeciwykres->setData(AMPLITUDOWY,dane);
+    trzeciwykres->ustawPrzedzialyWykresu(AMPLITUDOWY,0.01,10000,obliczenia.minZakres, obliczenia.maxZakres);
 
     int zakres  = int(((abs(obliczenia.maxZakres) + abs(obliczenia.minZakres))) / 20);
-    wykres->axisY->setTickCount(zakres + 1);
+    trzeciwykres->axisY->setTickCount(zakres + 1);
 
-    ui->graphicsView_2->setChart(wykres);
+    ui->graphicsView_2->setChart(trzeciwykres);
 }
 
 void MainWindow::on_p_char_faz_clicked()
 {
-    wykres = new Wykres(AMPLITUDOWY);
+    trzeciwykres = new Wykres(FAZOWY);
     QLineSeries *dane = new QLineSeries();
 
     obliczenia.widmo_fazowe();
     dane = obliczenia.obliczaneDane;
 
-    wykres->setData(FAZOWY,dane);
-    wykres->ustawPrzedzialyWykresu(FAZOWY,0.01,10000,obliczenia.minZakres, obliczenia.maxZakres);
+    trzeciwykres->setData(FAZOWY,dane);
+    trzeciwykres->ustawPrzedzialyWykresu(FAZOWY,0.01,10000,obliczenia.minZakres, obliczenia.maxZakres);
 
     int zakres  = int(((abs(obliczenia.maxZakres) + abs(obliczenia.minZakres))) / 40);
-    wykres->axisY->setTickCount(zakres + 1);
+    trzeciwykres->axisY->setTickCount(zakres + 1);
 
-    ui->graphicsView_2->setChart(wykres);
+    ui->graphicsView_2->setChart(trzeciwykres);
 }
 
 void MainWindow::stabilnosc()

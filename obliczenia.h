@@ -7,9 +7,9 @@
 #include <QDebug>
 #include <complex>
 
-#define h 0.1 // krok obliczeń
-#define T 1000 // całkowity czas symulacji – przedział [0 , T]
-#define L 250 // liczba okresów sygnału sinus w przedziale T
+#define h 0.001 // krok obliczeń
+#define T 10 // całkowity czas symulacji – przedział [0 , T]
+#define L 2.5 // liczba okresów sygnału sinus w przedziale T
 
 #define PI 3.14159265 // liczba PI
 

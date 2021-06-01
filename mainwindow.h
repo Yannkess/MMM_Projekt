@@ -64,5 +64,7 @@ private:
     Obliczenia obliczenia;
     Wykres *wykres;
     Wykres *drugiwykres;
+    Wykres *trzeciwykres;
+
 };
 #endif // MAINWINDOW_H
