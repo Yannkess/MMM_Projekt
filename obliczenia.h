@@ -49,9 +49,9 @@ public:
     double y2p[(int)(1.0 * T / h) + 1]; // druga pochodna sygnału wyjściowego
     double y3p[(int)(1.0 * T / h) + 1]; // trzecia pochodna sygnału wyjściowego
 
-    void metoda_taylora_sinus();
-    void Obliczenia::metoda_eulera_fala_prostokatna();
-    void Obliczenia::metoda_eulera_skok_jednostkowy();
+    void sinus();
+    void fala_prostokatna();
+    void skok_jednostkowy();
     void wypelnienie_macierzy();
 
     std::complex<double> transmitancja_widmowa(double omega);

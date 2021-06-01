@@ -139,7 +139,7 @@ void MainWindow::on_p_skok_jedn_clicked()
     prostokat = false;
 
     QLineSeries *dane = new QLineSeries();
-    obliczenia.metoda_eulera_skok_jednostkowy();
+    obliczenia.skok_jednostkowy();
 
     for (int i = 0; i < obliczenia.total; i++)
     {
@@ -159,7 +159,7 @@ void MainWindow::on_p_fala_prost_clicked()
     prostokat = true;
 
     QLineSeries *dane = new QLineSeries();
-    obliczenia.metoda_eulera_fala_prostokatna();
+    obliczenia.fala_prostokatna();
 
     for (int i = 0; i < obliczenia.total; i++)
     {
@@ -179,7 +179,7 @@ void MainWindow::on_p_sinus_clicked()
     prostokat = false;
 
     QLineSeries *dane = new QLineSeries();
-    obliczenia.metoda_taylora_sinus();
+    obliczenia.sinus();
 
     for (int i = 0; i <obliczenia.total; i++)
     {
@@ -198,11 +198,11 @@ void MainWindow::on_p_syg_wyj_clicked()
     QLineSeries *dane = new QLineSeries();
 
     if(sinus)
-        obliczenia.metoda_taylora_sinus();
+        obliczenia.sinus();
     else if(prostokat)
-       obliczenia.metoda_eulera_fala_prostokatna();
+       obliczenia.fala_prostokatna();
     else if(jednostkowy)
-       obliczenia.metoda_eulera_skok_jednostkowy();
+       obliczenia.skok_jednostkowy();
 
     drugiwykres = new Wykres(WYJSCIE);
 

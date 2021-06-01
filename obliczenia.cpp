@@ -56,44 +56,45 @@ double operator*(const Vect& U, const Vect& V)
     return s;
 }
 
-void Obliczenia::metoda_taylora_sinus(){
+void Obliczenia::sinus(){
     int i;
     double  w;
 
-    total = sizeof(u) / sizeof(u[0]); // rozmiar wektorów danych
-    w = 2.0 * PI * L / T; // częstotliwość sinusoidy
+    total = sizeof(u) / sizeof(u[0]);   // rozmiar wektorów danych
+     w = 2.0 * PI * L / T;              // częstotliwość sinusoidy
 
-    for (i = 0; i < total; i++) // sygnał wejściowy i jego pochodne
-    {
-        u[i] = M * sin(w * i * h); // sygnał wejściowy: u=M*sin(w*t) , t=i*h
-        u1p[i] = M * w * cos(w * i * h); // pochodna 1: u’(t)
+    for(i = 0; i < total; i++)
+        u[i] = M * sin(w * i * h);
 
-    }
+    wypelnienie_macierzy();
 
-    y[0] = 0; y1p[0] = 0; y2p[0] = 0; y3p[0] = 0; // zerowe warunki początkowe
+    xi_1.n[0] = 0; xi_1.n[1] = 0; xi_1.n[2] = 0;
 
-    for (i = 0; i < total - 1; i++) // główna pętla obliczeń
-    {
-        y3p[i] = -a_2 * y2p[i] - a_1 * y1p[i] - a_0 * y[i] + b_1 * u1p[i] + b_0 * u[i];
-        y2p[i + 1] = y2p[i] + h * y3p[i];
-        y1p[i + 1] = y1p[i] + h * y2p[i] + (h * h / 2.0) * y3p[i] + (h * h * h / 6.0);
-        y[i + 1] = y[i] + h * y1p[i] + (h * h / 2.0) * y2p[i] + (h * h * h / 6.0) * y3p[i];
-    }
+    for (i = 0; i < total; i++)
+        {
+            Ax = A * xi_1;
+            Bu = B * u[i];
+            Cx = C * xi_1;
+            Du = D * u[i];
+            xi = Ax + Bu; xi = xi * h;
+            xi = xi_1 + xi; xi_1 = xi;
+            y[i] = Cx + Du;
+        }
 }
 
 
-void Obliczenia::metoda_eulera_fala_prostokatna()
+void Obliczenia::fala_prostokatna()
 {
     int i;
     double  w;
 
-    total = sizeof(u) / sizeof(u[0]); // rozmiar wektorów danych
-     w = 2.0 * PI * L / T; // częstotliwość sinusoidy
+    total = sizeof(u) / sizeof(u[0]);   // rozmiar wektorów danych
+     w = 2.0 * PI * L / T;              // częstotliwość sinusoidy
 
-    for(i = 0; i < total; i++)      // sygnał wejściowy fala prostokątna obliczona na podstawie sygnału sinus
+    for(i = 0; i < total; i++)          // sygnał wejściowy fala prostokątna obliczona na podstawie sygnału sinus
     {
         u[i] = M * sin(w * i * h);      // Sinus
-        Ufala[i]=((u[i] > 0) ? M : -M);    // Fala prostokątna
+        Ufala[i]=((u[i] > 0) ? M : -M); // Fala prostokątna
     }
 
     wypelnienie_macierzy();
@@ -112,15 +113,15 @@ void Obliczenia::metoda_eulera_fala_prostokatna()
         }
 }
 
-void Obliczenia::metoda_eulera_skok_jednostkowy()
+void Obliczenia::skok_jednostkowy()
 {
     int i;
     double  w;
 
-    total = sizeof(u) / sizeof(u[0]); // rozmiar wektorów danych
-     w = 2.0 * PI * L / T; // częstotliwość sinusoidy
+    total = sizeof(u) / sizeof(u[0]);   // rozmiar wektorów danych
+     w = 2.0 * PI * L / T;              // częstotliwość sinusoidy
 
-    for(i = 0; i < total; i++) // skok jednostkowy
+    for(i = 0; i < total; i++)          // skok jednostkowy
         Ujednostkowy[i] = M;
 
     wypelnienie_macierzy();
@@ -191,6 +192,7 @@ void Obliczenia::wypelnienie_macierzy()
 }
 
 //--------------
+
 std::complex<double> Obliczenia::transmitancja_widmowa(double omega)
 {
     std::complex<double> licznik;
@@ -215,7 +217,7 @@ void Obliczenia::widmo_amplitudowe()
 
     for(double omega = 0.1; omega < 10000 ; omega *= 10)
     {
-        for(double i = 1; i <10; i++)
+        for(double i = 1; i < 10; i++)
         {
             yValue = transmitancja_widmowa(omega * i);
             amplitude = 20 * log10(abs(yValue));
@@ -240,7 +242,7 @@ void Obliczenia::widmo_fazowe()
         for(double i = 1; i < 10; i++)
         {
              yValue = transmitancja_widmowa(omega * i);
-             argument = (arg(yValue) * 180) / M_PI;
+             argument = (arg(yValue) * 180) / PI;
 
              obliczaneDane->append(omega * i, argument);
 
