@@ -76,8 +76,10 @@ void Obliczenia::sinus(){
             Bu = B * u[i];
             Cx = C * xi_1;
             Du = D * u[i];
-            xi = Ax + Bu; xi = xi * h;
-            xi = xi_1 + xi; xi_1 = xi;
+            xi = Ax + Bu;
+            xi = xi * h;
+            xi = xi_1 + xi;
+            xi_1 = xi;
             y[i] = Cx + Du;
         }
 }
@@ -107,8 +109,10 @@ void Obliczenia::fala_prostokatna()
             Bu = B * Ufala[i];
             Cx = C * xi_1;
             Du = D * Ufala[i];
-            xi = Ax + Bu; xi = xi * h;
-            xi = xi_1 + xi; xi_1 = xi;
+            xi = Ax + Bu;
+            xi = xi * h;
+            xi = xi_1 + xi;
+            xi_1 = xi;
             y[i] = Cx + Du;
         }
 }
@@ -205,35 +209,36 @@ std::complex<double> Obliczenia::transmitancja_widmowa(double omega)
     return licznik / mianownik;
 }
 
-void Obliczenia::widmo_amplitudowe()
+void Obliczenia::char_amplitudowa()
 {
     maxZakres = -10000;
     minZakres = 10000;
 
     obliczaneDane = new QLineSeries();
 
-    std::complex<double> yValue;
-    double amplitude;
+    std::complex<double> wartoscY;
+    double amplituda;
 
     for(double omega = 0.1; omega < 10000 ; omega *= 10)
     {
         for(double i = 1; i < 10; i++)
         {
-            yValue = transmitancja_widmowa(omega * i);
-            amplitude = 20 * log10(abs(yValue));
-            obliczaneDane->append(omega * i, amplitude);
-            zakres_widma(AMPLITUDA, amplitude);
+            wartoscY = transmitancja_widmowa(omega * i);
+            amplituda = 20 * log10(abs(wartoscY));
+
+            obliczaneDane->append(omega * i, amplituda);
+            zakres_widma(AMPLITUDA, amplituda);
         }
     }
 
 }
 
-void Obliczenia::widmo_fazowe()
+void Obliczenia::char_fazowa()
 {
     maxZakres = -10000;
     minZakres = 10000;
     obliczaneDane = new QLineSeries();
-    std::complex<double> yValue;
+    std::complex<double> wartoscY;
 
     double argument;
 
@@ -241,12 +246,12 @@ void Obliczenia::widmo_fazowe()
     {
         for(double i = 1; i < 10; i++)
         {
-             yValue = transmitancja_widmowa(omega * i);
-             argument = (arg(yValue) * 180) / PI;
+             wartoscY = transmitancja_widmowa(omega * i);
+             argument = (arg(wartoscY) * 180) / PI;
+
+             //qDebug()<<"Omega = "<<omega * i<<" => argument = "<< argument;
 
              obliczaneDane->append(omega * i, argument);
-
-             qDebug()<<"dla omega = "<< omega * i <<"argument = "<< argument;
              zakres_widma(FAZA,argument);
         }
     }
@@ -279,7 +284,7 @@ void Obliczenia::zakres_widma(int typ, double wartosc)
     }
 
     if (minZakres < 0)
-        minZakres = (floor((minZakres/typ))) * typ;
+        minZakres = (floor((minZakres / typ))) * typ;
     else
         minZakres = (floor((minZakres / typ)) + 1) * typ;
 }

@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     createTextTransmitation();
-    this->setWindowTitle("Projekt - Marcin Jankowski, Kacper Wierciński");
+    this->setWindowTitle("Projekt - Marcin Jankowski, Kacper Wiercinski");
     ui->plainTextEdit->setReadOnly(true);
 
     wykres = new Wykres(WEJSCIE);
@@ -27,7 +27,7 @@ void MainWindow::createTextTransmitation()
     textTransmitation.clear();
 
 
-    textTransmitation.append("Postać transmitancji H(s)" );
+    textTransmitation.append("Postac transmitancji H(s)" );
     textTransmitation.append("\n                " + QString::number(b_1) + "s + " + QString::number(b_0) +"\n");
     textTransmitation.append("-------------------------------   * exp ( -s * "+QString::number(opoz));
     textTransmitation.append(")\n s^3 + " + QString::number(a_2) + "s^2 + " + QString::number(a_1) + "s + ");
@@ -199,8 +199,10 @@ void MainWindow::on_p_syg_wyj_clicked()
 
     if(sinus)
         obliczenia.sinus();
+
     else if(prostokat)
        obliczenia.fala_prostokatna();
+
     else if(jednostkowy)
        obliczenia.skok_jednostkowy();
 
@@ -230,7 +232,7 @@ void MainWindow::on_p_char_amp_clicked()
     trzeciwykres = new Wykres(AMPLITUDOWY);
     QLineSeries *dane = new QLineSeries();
 
-    obliczenia.widmo_amplitudowe();
+    obliczenia.char_amplitudowa();
     dane = obliczenia.obliczaneDane;
 
     trzeciwykres->setData(AMPLITUDOWY,dane);
@@ -247,7 +249,7 @@ void MainWindow::on_p_char_faz_clicked()
     trzeciwykres = new Wykres(FAZOWY);
     QLineSeries *dane = new QLineSeries();
 
-    obliczenia.widmo_fazowe();
+    obliczenia.char_fazowa();
     dane = obliczenia.obliczaneDane;
 
     trzeciwykres->setData(FAZOWY,dane);
@@ -263,9 +265,9 @@ void MainWindow::stabilnosc()
 {
     bool warunek = obliczenia.warunek_stabilnosci();
     if(warunek)
-        ui->textBrowser_2->setText("Warunek stabilności spełniony.");
+        ui->textBrowser_2->setText("Warunek stabilnosci spelniony.");
     else
-        ui->textBrowser_2->setText("Warunek stabilności nie jest spełniony.");
+        ui->textBrowser_2->setText("Warunek stabilnosci nie jest spelniony.");
 }
 
 

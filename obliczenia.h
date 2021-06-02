@@ -36,18 +36,12 @@ public:
 
     // zmienne globalne w programie
     double u[(int)(1.0 * T / h) + 1]; // sygnał wejściowy
-    double u1p[(int)(1.0 * T / h) + 1]; // pierwsza pochodna sygnału wejściowego
 
     // Euler
-    double us[(int)(1.0*T/h)+1]; // sygnał wejściowy sinus
-    double Ufala[(int)(1.0*T/h)+1]; // sygnał wejściowy fala prostokątna
-    double Ujednostkowy[(int)(1.0*T/h)+1]; // sygnał wejściowy skok jednostkowy
-
-
+    double us[(int)(1.0 * T / h) + 1]; // sygnał wejściowy sinus
+    double Ufala[(int)(1.0 * T / h) + 1]; // sygnał wejściowy fala prostokątna
+    double Ujednostkowy[(int)(1.0 * T / h) + 1]; // sygnał wejściowy skok jednostkowy
     double y[(int)(1.0 * T / h) + 1]; // sygnał wyjściowy
-    double y1p[(int)(1.0 * T / h) + 1]; // pierwsza pochodna sygnału wyjściowego
-    double y2p[(int)(1.0 * T / h) + 1]; // druga pochodna sygnału wyjściowego
-    double y3p[(int)(1.0 * T / h) + 1]; // trzecia pochodna sygnału wyjściowego
 
     void sinus();
     void fala_prostokatna();
@@ -55,8 +49,8 @@ public:
     void wypelnienie_macierzy();
 
     std::complex<double> transmitancja_widmowa(double omega);
-    void widmo_amplitudowe();
-    void widmo_fazowe();
+    void char_amplitudowa();
+    void char_fazowa();
     void zakres_widma(int typ, double wartosc);
 
     bool warunek_stabilnosci();
